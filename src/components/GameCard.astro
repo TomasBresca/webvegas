@@ -1,0 +1,72 @@
+---
+interface Props {
+  title: string;
+  image: string;
+  slug: string;
+}
+
+const { title, image, slug } = Astro.props;
+---
+
+<div 
+  class="group relative aspect-square overflow-hidden rounded-2xl bg-black/50 backdrop-blur-sm border border-[#e6c656]/10 cursor-pointer"
+  data-game-card
+>
+  <!-- Imagen del juego con efecto de hover/touch -->
+  <div class="absolute inset-0 transition-transform duration-500 group-hover:scale-110 group-[.active]:scale-110">
+    <img 
+      src={image} 
+      alt={title}
+      class="h-full w-full object-cover"
+      loading="lazy"
+    />
+    <!-- Overlay gradiente -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-80"></div>
+  </div>
+
+  <!-- Contenido -->
+  <div class="absolute inset-0 flex flex-col justify-end p-4">
+    <!-- Título con efecto de brillo -->
+    <h3 class="font-heading text-2xl md:text-3xl mb-4 text-white drop-shadow-glow group-hover:text-[#e6c656] group-[.active]:text-[#e6c656] transition-colors text-center">
+      {title}
+    </h3>
+
+    <!-- Botón con animación -->
+    <a
+      href={`/juegos/${slug}`}
+      class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-black font-heading uppercase py-3 px-6 rounded-lg 
+             opacity-0 transform translate-y-4 transition-all duration-300 ease-out
+             group-hover:opacity-100 group-hover:translate-y-0
+             group-[.active]:opacity-100 group-[.active]:translate-y-0
+             hover:scale-105 hover:shadow-glow-gold text-base tracking-wider text-center"
+    >
+      JUGAR AHORA
+    </a>
+  </div>
+
+  <!-- Decoración: fichas flotantes -->
+  <div class="absolute -top-4 -right-4 w-12 h-12 opacity-0 group-hover:opacity-30 group-[.active]:opacity-30 transition-opacity duration-500">
+    <img src="/images/chip.svg" class="w-full h-full animate-float1" alt="Ficha decorativa" />
+  </div>
+  <div class="absolute -bottom-4 -left-4 w-8 h-8 opacity-0 group-hover:opacity-20 group-[.active]:opacity-20 transition-opacity duration-500">
+    <img src="/images/chip.svg" class="w-full h-full animate-float2" alt="Ficha decorativa" />
+  </div>
+</div>
+
+<script>
+  // Manejo de interacción táctil
+  document.querySelectorAll('[data-game-card]').forEach(card => {
+    let touchTimeout: number;
+
+    card.addEventListener('touchstart', () => {
+      card.classList.add('active');
+    });
+
+    card.addEventListener('touchend', () => {
+      clearTimeout(touchTimeout);
+      touchTimeout = setTimeout(() => {
+        card.classList.remove('active');
+      }, 3000) as unknown as number; // Aumentado a 3 segundos
+    });
+  });
+</script>

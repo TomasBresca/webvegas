@@ -1,0 +1,25 @@
+<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logo para la plataforma de juegos -->
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e6c656;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d4af37;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo del logo -->
+  <rect x="10" y="10" width="180" height="80" rx="15" fill="#121212" stroke="url(#goldGradient)" stroke-width="2" />
+  
+  <!-- Texto del logo -->
+  <text x="100" y="50" font-family="Oswald, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" dominant-baseline="middle" fill="url(#goldGradient)">WEBVEGAS</text>
+  
+  <!-- Símbolos de juego -->
+  <text x="30" y="50" font-family="monospace" font-size="20" fill="url(#goldGradient)" text-anchor="middle" dominant-baseline="middle">♠</text>
+  <text x="170" y="50" font-family="monospace" font-size="20" fill="url(#goldGradient)" text-anchor="middle" dominant-baseline="middle">♦</text>
+  
+  <!-- Destellos decorativos -->
+  <circle cx="15" cy="15" r="3" fill="#e6c656" />
+  <circle cx="185" cy="15" r="3" fill="#e6c656" />
+  <circle cx="15" cy="85" r="3" fill="#e6c656" />
+  <circle cx="185" cy="85" r="3" fill="#e6c656" />
+</svg> 

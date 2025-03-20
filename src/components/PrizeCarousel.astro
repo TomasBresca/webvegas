@@ -1,0 +1,250 @@
+---
+interface Prize {
+  image: string;
+  amount: string;
+  game: string;
+  date: string;
+}
+
+const prizes: Prize[] = [
+  {
+    image: "/images/premios/comprobante1.jpeg",
+    amount: "$1.850.000",
+    game: "Zeus vs Hades",
+    date: "30/09/2023"
+  },
+  {
+    image: "/images/premios/comprobante2.jpeg",
+    amount: "$2.100.000",
+    game: "6 Jokers",
+    date: "29/09/2023"
+  },
+  {
+    image: "/images/premios/comprobante3.jpeg",
+    amount: "$1.250.000",
+    game: "Aztec Cluster",
+    date: "28/09/2023"
+  },
+  {
+    image: "/images/premios/comprobante4.jpeg",
+    amount: "$1.750.000",
+    game: "Sugar Rush",
+    date: "27/09/2023"
+  },
+  {
+    image: "/images/premios/comprobante5.jpeg",
+    amount: "$2.350.000",
+    game: "Roulette",
+    date: "26/09/2023"
+  },
+  {
+    image: "/images/premios/comprobante6.jpeg",
+    amount: "$1.950.000",
+    game: "Joker's Jewels",
+    date: "25/09/2023"
+  }
+];
+
+// Duplicar los premios para el carrusel infinito
+const allPrizes = [...prizes, ...prizes];
+---
+
+<div class="relative w-full overflow-hidden py-8">
+  <!-- Carrusel Container -->
+  <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 px-4 scrollbar-hide" id="prizeCarousel">
+    {allPrizes.map((prize, index) => (
+      <div 
+        class="relative flex-none w-[280px] aspect-[3/4] rounded-2xl overflow-hidden snap-center group"
+        style={`transform: rotate(${index % 2 === 0 ? '2' : '-2'}deg);`}
+        data-prize-index={index}
+      >
+        <!-- Imagen -->
+        <img 
+          src={prize.image} 
+          alt={`Premio de ${prize.amount}`}
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-zoom-in"
+          loading="lazy"
+          data-fullscreen-image
+        />
+        
+        <!-- Overlay con gradiente -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 pointer-events-none"></div>
+        
+        <!-- Contenido -->
+        <div class="absolute inset-0 flex flex-col justify-end p-6 transform transition-transform duration-300 pointer-events-none">
+          <!-- Fecha -->
+          <div class="mb-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <span class="text-[#e6c656] text-sm font-heading">
+              {prize.date}
+            </span>
+          </div>
+          
+          <!-- Monto -->
+          <div class="mb-3">
+            <span class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-black px-4 py-2 rounded-full font-heading text-lg shadow-glow-gold">
+              {prize.amount}
+            </span>
+          </div>
+          
+          <!-- Nombre del juego -->
+          <h3 class="text-white font-heading text-xl mb-4 drop-shadow-glow group-hover:text-[#e6c656] transition-colors">
+            {prize.game}
+          </h3>
+          
+          <!-- Decoración -->
+          <div class="absolute -top-4 -right-4 w-12 h-12 opacity-0 group-hover:opacity-30 transition-opacity duration-500">
+            <img src="/images/chip.svg" class="w-full h-full animate-float1" alt="Ficha decorativa" />
+          </div>
+          <div class="absolute -bottom-4 -left-4 w-8 h-8 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
+            <img src="/images/chip.svg" class="w-full h-full animate-float2" alt="Ficha decorativa" />
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Controles de navegación -->
+  <button 
+    class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm p-3 rounded-full border border-[#e6c656]/20 text-[#e6c656] hover:bg-[#e6c656]/10 transition-all z-10"
+    id="prevBtn"
+  >
+    ←
+  </button>
+  <button 
+    class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm p-3 rounded-full border border-[#e6c656]/20 text-[#e6c656] hover:bg-[#e6c656]/10 transition-all z-10"
+    id="nextBtn"
+  >
+    →
+  </button>
+
+  <!-- Modal para imagen completa -->
+  <div id="imageModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center backdrop-blur-sm">
+    <button class="absolute top-4 right-4 text-white text-4xl hover:text-[#e6c656] transition-colors" id="closeModal">×</button>
+    <img src="" alt="" class="max-h-[90vh] max-w-[90vw] object-contain" id="modalImage">
+  </div>
+</div>
+
+<script>
+  const carousel = document.getElementById('prizeCarousel');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const imageModal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const closeModal = document.getElementById('closeModal');
+  const itemWidth = 300; // Ancho del item + gap
+  const totalItems = document.querySelectorAll('[data-prize-index]').length;
+  const halfItems = totalItems / 2;
+
+  // Manejo de imágenes a tamaño completo
+  document.querySelectorAll('[data-fullscreen-image]').forEach(img => {
+    img.addEventListener('click', (e) => {
+      const target = e.target as HTMLImageElement;
+      if (imageModal && modalImage) {
+        modalImage.src = target.src;
+        modalImage.alt = target.alt;
+        imageModal.classList.remove('hidden');
+        imageModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  // Cerrar modal
+  if (closeModal && imageModal) {
+    closeModal.addEventListener('click', () => {
+      imageModal.classList.add('hidden');
+      imageModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    });
+
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        imageModal.classList.add('hidden');
+        imageModal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  if (carousel && prevBtn && nextBtn) {
+    let currentIndex = 0;
+
+    const scrollToIndex = (index: number) => {
+      carousel.scrollTo({
+        left: index * itemWidth,
+        behavior: 'smooth'
+      });
+    };
+
+    const handleScroll = () => {
+      if (!carousel) return;
+      
+      const scrollPosition = carousel.scrollLeft;
+      currentIndex = Math.round(scrollPosition / itemWidth);
+
+      // Si llegamos al final, volver al inicio
+      if (currentIndex >= halfItems) {
+        currentIndex = 0;
+        carousel.scrollTo({ left: 0 });
+      }
+      // Si vamos hacia atrás del inicio, ir al final
+      else if (currentIndex < 0) {
+        currentIndex = halfItems - 1;
+        carousel.scrollTo({ left: currentIndex * itemWidth });
+      }
+    };
+
+    carousel.addEventListener('scroll', handleScroll);
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = halfItems - 1;
+      }
+      scrollToIndex(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex >= halfItems) {
+        currentIndex = 0;
+      }
+      scrollToIndex(currentIndex);
+    });
+
+    // Autoplay
+    let autoplayInterval: number;
+    
+    const startAutoplay = () => {
+      autoplayInterval = setInterval(() => {
+        currentIndex++;
+        if (currentIndex >= halfItems) {
+          currentIndex = 0;
+        }
+        scrollToIndex(currentIndex);
+      }, 4000) as unknown as number;
+    };
+
+    const stopAutoplay = () => {
+      clearInterval(autoplayInterval);
+    };
+
+    startAutoplay();
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('touchstart', stopAutoplay);
+
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('touchend', startAutoplay);
+  }
+</script>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style> 

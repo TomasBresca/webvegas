@@ -1,0 +1,76 @@
+---
+// Importamos los iconos de Phosphor y nuestro componente NavItem
+import { House, GameController, Trophy, ChatCircleDots, ShareNetwork } from 'phosphor-react';
+import NavItem from './NavItem';
+
+const links = [
+  { id: 'hero', label: 'Inicio' },
+  { id: 'ganadores', label: 'Premios' },
+  { id: 'juegos', label: 'Juegos' },
+  { id: 'como-cargar', label: 'Cargar' },
+  { id: 'soporte', label: 'Soporte' }
+] as const;
+---
+
+<nav class="fixed bottom-0 left-0 right-0 bg-dark/95 backdrop-blur-sm border-t border-[#e6c656]/20 z-50">
+  <div class="container mx-auto flex justify-around items-center py-2">
+    {links.map(({ id, label }) => (
+      <a 
+        href={`#${id}`} 
+        title={label}
+      >
+        <NavItem id={id} label={label} client:visible />
+      </a>
+    ))}
+  </div>
+</nav>
+
+<script>
+  // Añadimos comportamiento smooth scroll optimizado
+  document.querySelectorAll('nav a[href^="#"]').forEach((element) => {
+    const anchor = element as HTMLAnchorElement;
+    anchor.addEventListener('click', function (e: MouseEvent) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      if (href) {
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          // Detectamos si estamos en desktop o mobile
+          const isDesktop = window.innerWidth >= 768;
+          
+          // Implementamos scroll suave con opciones mejoradas
+          if (isDesktop) {
+            const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+            const startPosition = window.scrollY;
+            const distance = targetPosition - startPosition;
+            
+            let startTime: number | null = null;
+            const duration = 500; // Reducido a 500ms para que sea más rápido
+            
+            function animateScroll(currentTime: number) {
+              if (startTime === null) startTime = currentTime;
+              const timeElapsed = currentTime - startTime;
+              const progress = Math.min(timeElapsed / duration, 1);
+              
+              // Función de easing más suave y natural
+              const easeOutQuint = (t: number) => 1 - Math.pow(1 - t, 2);
+              
+              window.scrollTo(0, startPosition + distance * easeOutQuint(progress));
+              
+              if (timeElapsed < duration) {
+                requestAnimationFrame(animateScroll);
+              }
+            }
+            
+            requestAnimationFrame(animateScroll);
+          } else {
+            // En mobile usamos el comportamiento nativo que ya funciona bien
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+          }
+        }
+      }
+    });
+  });
+</script>

@@ -1,0 +1,28 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Patrón de fondo tipo casino con elementos como cartas y fichas -->
+  <defs>
+    <pattern id="casinoPattern" patternUnits="userSpaceOnUse" width="100" height="100">
+      <!-- Fondo -->
+      <rect width="100" height="100" fill="#111111" />
+      
+      <!-- Símbolos de cartas -->
+      <path d="M20,20 L25,15 L30,20 L25,30 Z" fill="#e6c656" opacity="0.15" />
+      <path d="M60,30 C60,25 65,20 70,25 C75,30 75,35 70,40 C65,35 60,35 60,30 Z" fill="#e6c656" opacity="0.15" />
+      <path d="M35,60 L30,65 L35,70 L40,65 Z" fill="#e6c656" opacity="0.15" />
+      <path d="M70,70 C70,65 75,60 80,65 C85,70 85,75 80,80 C75,75 70,75 70,70 Z" fill="#e6c656" opacity="0.15" />
+      
+      <!-- Fichas de casino estilizadas -->
+      <circle cx="15" cy="50" r="5" stroke="#e6c656" stroke-width="1" fill="none" opacity="0.2" />
+      <circle cx="85" cy="30" r="4" stroke="#e6c656" stroke-width="1" fill="none" opacity="0.2" />
+      <circle cx="50" cy="85" r="6" stroke="#e6c656" stroke-width="1" fill="none" opacity="0.2" />
+      
+      <!-- Símbolos de juego -->
+      <text x="45" y="45" font-family="monospace" font-size="12" fill="#e6c656" opacity="0.15">♠</text>
+      <text x="25" y="75" font-family="monospace" font-size="12" fill="#e6c656" opacity="0.15">♥</text>
+      <text x="75" y="25" font-family="monospace" font-size="12" fill="#e6c656" opacity="0.15">♦</text>
+      <text x="75" y="75" font-family="monospace" font-size="12" fill="#e6c656" opacity="0.15">♣</text>
+    </pattern>
+  </defs>
+  
+  <rect width="100" height="100" fill="url(#casinoPattern)" />
+</svg> 
