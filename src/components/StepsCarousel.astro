@@ -67,34 +67,17 @@ const steps: Step[] = [
       ></button>
     ))}
   </div>
-
-  <!-- Controles de navegación -->
-  <button 
-    class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm p-3 rounded-full border border-[#e6c656]/20 text-[#e6c656] hover:bg-[#e6c656]/10 transition-all z-10"
-    id="prevStepBtn"
-    aria-label="Paso anterior"
-  >
-    ←
-  </button>
-  <button 
-    class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm p-3 rounded-full border border-[#e6c656]/20 text-[#e6c656] hover:bg-[#e6c656]/10 transition-all z-10"
-    id="nextStepBtn"
-    aria-label="Siguiente paso"
-  >
-    →
-  </button>
 </div>
 
 <script>
   const carousel = document.getElementById('stepsCarousel');
-  const prevBtn = document.getElementById('prevStepBtn');
-  const nextBtn = document.getElementById('nextStepBtn');
   const dots = document.querySelectorAll('[data-step-dot]');
   const stepNumbers = document.querySelectorAll('[data-step-number]');
   const totalSteps = document.querySelectorAll('[data-step-index]').length;
   
-  if (carousel && prevBtn && nextBtn) {
+  if (carousel) {
     let currentIndex = 0;
+    let autoplayInterval: number | undefined;
     
     // Función para actualizar los indicadores y números
     const updateIndicators = (index: number) => {
@@ -125,21 +108,31 @@ const steps: Step[] = [
       }
     };
 
-    // Event listeners para botones
-    prevBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + totalSteps) % totalSteps;
-      scrollToIndex(currentIndex);
-    });
-
-    nextBtn.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % totalSteps;
-      scrollToIndex(currentIndex);
-    });
+    // Función para iniciar el autoplay
+    const startAutoplay = () => {
+      if (autoplayInterval) return;
+      
+      autoplayInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalSteps;
+        scrollToIndex(currentIndex);
+      }, 2500); // Cambia cada 2.5 segundos
+    };
+    
+    // Función para detener el autoplay
+    const stopAutoplay = () => {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = undefined;
+      }
+    };
 
     // Event listeners para indicadores
     dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
         scrollToIndex(index);
+        // Reinicia el autoplay después de la interacción manual
+        stopAutoplay();
+        startAutoplay();
       });
     });
 
@@ -159,23 +152,39 @@ const steps: Step[] = [
         currentIndex = (currentIndex - 1 + totalSteps) % totalSteps;
         scrollToIndex(currentIndex);
       }
+      
+      // Reinicia el autoplay después de la interacción manual
+      stopAutoplay();
+      startAutoplay();
     };
     
     carousel.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
+      // Pausa el autoplay mientras se interactúa
+      stopAutoplay();
     });
     
     carousel.addEventListener('touchend', (e) => {
       touchEndX = e.changedTouches[0].screenX;
       handleSwipe();
     });
-
-    // El autoplay ha sido desactivado a petición del usuario
+    
+    // Pausar autoplay cuando el usuario interactúa con el carrusel
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    
+    // Reanudar autoplay cuando el usuario deja de interactuar
+    carousel.addEventListener('mouseleave', startAutoplay);
 
     // Para asegurarnos de que el carrusel comienza en el primer elemento
     setTimeout(() => {
       scrollToIndex(0);
+      // Iniciar el autoplay
+      startAutoplay();
     }, 100);
+    
+    // Limpiar el intervalo cuando se desmonta el componente
+    document.addEventListener('astro:page-load', startAutoplay);
+    document.addEventListener('astro:before-swap', stopAutoplay);
   }
 </script>
 
