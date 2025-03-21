@@ -20,30 +20,40 @@ const steps: Step[] = [
 ];
 ---
 
-<div class="relative w-full overflow-hidden py-4 max-w-3xl mx-auto">
-  <!-- Carrusel Container -->
-  <div class="flex gap-8 overflow-x-hidden snap-x snap-mandatory scrollbar-hide" id="stepsCarousel">
-    {steps.map((step) => (
+<div class="relative w-full py-12 max-w-3xl mx-auto">
+  <!-- Numeración (ahora completamente fuera del carrusel) -->
+  <div id="stepNumbers" class="absolute top-0 left-0 w-full z-30 pointer-events-none">
+    {steps.map((step, index) => (
       <div 
-        class="flex-none w-full snap-center relative bg-black/30 backdrop-blur-sm border border-[#e6c656]/20 rounded-2xl p-6 transform transition-all duration-300 group"
-        data-step-index={step.number - 1}
+        data-step-number={index}
+        data-active={index === 0}
+        class="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 md:w-20 md:h-20 rounded-full bg-gradient-to-r from-[#e6c656] to-[#d4af37] flex items-center justify-center text-black font-heading text-2xl md:text-4xl font-bold shadow-xl border-2 md:border-3 border-black/20 transition-opacity opacity-0 data-[active=true]:opacity-100"
       >
-        <!-- Numeración -->
-        <div class="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gradient-to-r from-[#e6c656] to-[#d4af37] flex items-center justify-center text-black font-heading text-xl z-10 shadow-md">
-          {step.number}
-        </div>
-        
-        <!-- Contenedor para la imagen (ajustado para que sea solo ligeramente más ancho que la imagen) -->
-        <div class="flex items-center justify-center bg-black/20 rounded-xl overflow-hidden mx-auto max-w-md md:max-w-lg">
-          <img
-            src={step.image}
-            alt={`Paso ${step.number}`}
-            class="w-full h-auto object-contain rounded-xl !important"
-            style="border-radius: 0.75rem;"
-          />
-        </div>
+        {step.number}
       </div>
     ))}
+  </div>
+  
+  <!-- Carrusel Container -->
+  <div class="relative overflow-hidden rounded-2xl mt-4">
+    <div class="flex gap-8 overflow-x-hidden snap-x snap-mandatory scrollbar-hide" id="stepsCarousel">
+      {steps.map((step) => (
+        <div 
+          class="flex-none w-full snap-center relative bg-black/30 backdrop-blur-sm border border-[#e6c656]/20 rounded-2xl p-6 transform transition-all duration-300 group"
+          data-step-index={step.number - 1}
+        >
+          <!-- Contenedor para la imagen -->
+          <div class="flex items-center justify-center bg-black/20 rounded-xl overflow-hidden mx-auto max-w-md md:max-w-lg">
+            <img
+              src={step.image}
+              alt={`Paso ${step.number}`}
+              class="w-full h-auto object-contain rounded-xl !important"
+              style="border-radius: 0.75rem;"
+            />
+          </div>
+        </div>
+      ))}
+    </div>
   </div>
 
   <!-- Indicador de pasos -->
@@ -80,15 +90,22 @@ const steps: Step[] = [
   const prevBtn = document.getElementById('prevStepBtn');
   const nextBtn = document.getElementById('nextStepBtn');
   const dots = document.querySelectorAll('[data-step-dot]');
+  const stepNumbers = document.querySelectorAll('[data-step-number]');
   const totalSteps = document.querySelectorAll('[data-step-index]').length;
   
   if (carousel && prevBtn && nextBtn) {
     let currentIndex = 0;
     
-    // Función para actualizar los indicadores
+    // Función para actualizar los indicadores y números
     const updateIndicators = (index: number) => {
+      // Actualizar los puntos indicadores
       dots.forEach((dot, i) => {
         dot.setAttribute('data-active', (i === index).toString());
+      });
+      
+      // Actualizar la visibilidad de los números
+      stepNumbers.forEach((number, i) => {
+        number.setAttribute('data-active', (i === index).toString());
       });
     };
 
