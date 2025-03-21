@@ -2,28 +2,20 @@
 interface Step {
   number: number;
   image: string;
-  title: string;
-  description: string;
 }
 
 const steps: Step[] = [
   {
     number: 1,
-    image: "/images/contactanos.webp",
-    title: "Hablanos por WhatsApp",
-    description: "A través del chat se gestionarán tus cargas y retiros automáticamente."
+    image: "/images/Joker 1.webp"
   },
   {
     number: 2,
-    image: "/images/crear-usuario.webp",
-    title: "Creá tu Usuario",
-    description: "Tocá en el botón de crear tu usuario y obtené tu cuenta en segundos."
+    image: "/images/Joker 2.webp"
   },
   {
     number: 3,
-    image: "/images/fichas-cargadas.webp",
-    title: "Bono Activado",
-    description: "Tu bono de bienvenida ya estará activo. Envía tu comprobante de carga y ya podes empezar a ganar."
+    image: "/images/Joker 3.webp"
   }
 ];
 ---
@@ -33,7 +25,7 @@ const steps: Step[] = [
   <div class="flex gap-8 overflow-x-hidden snap-x snap-mandatory scrollbar-hide" id="stepsCarousel">
     {steps.map((step) => (
       <div 
-        class="flex-none w-full snap-center relative bg-black/30 backdrop-blur-sm border border-[#e6c656]/20 rounded-2xl p-8 pt-10 transform transition-all duration-300 group"
+        class="flex-none w-full snap-center relative bg-black/30 backdrop-blur-sm border border-[#e6c656]/20 rounded-2xl p-6 transform transition-all duration-300 group"
         data-step-index={step.number - 1}
       >
         <!-- Numeración -->
@@ -41,26 +33,14 @@ const steps: Step[] = [
           {step.number}
         </div>
         
-        <!-- Contenido -->
-        <div class="flex flex-col md:flex-row gap-6 items-center">
-          <!-- Contenedor para la imagen -->
-          <div class="w-full md:w-1/2 flex items-center justify-center bg-black/20 rounded-xl overflow-hidden mb-4 md:mb-0">
-            <img
-              src={step.image}
-              alt={`Paso ${step.number}: ${step.title}`}
-              class="w-full h-auto object-cover rounded-xl"
-            />
-          </div>
-          
-          <!-- Texto del paso -->
-          <div class="w-full md:w-1/2 flex flex-col justify-center">
-            <h3 class="font-heading text-2xl mb-4 text-white group-hover:text-[#e6c656] transition-colors">
-              {step.title}
-            </h3>
-            <p class="text-gray-400 text-lg">
-              {step.description}
-            </p>
-          </div>
+        <!-- Contenedor para la imagen (ajustado para que sea solo ligeramente más ancho que la imagen) -->
+        <div class="flex items-center justify-center bg-black/20 rounded-xl overflow-hidden mx-auto max-w-md md:max-w-lg">
+          <img
+            src={step.image}
+            alt={`Paso ${step.number}`}
+            class="w-full h-auto object-contain rounded-xl !important"
+            style="border-radius: 0.75rem;"
+          />
         </div>
       </div>
     ))}
@@ -173,29 +153,7 @@ const steps: Step[] = [
       handleSwipe();
     });
 
-    // Autoplay
-    let autoplayInterval: number;
-    
-    const startAutoplay = () => {
-      autoplayInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % totalSteps;
-        scrollToIndex(currentIndex);
-      }, 5000) as unknown as number;
-    };
-
-    const stopAutoplay = () => {
-      clearInterval(autoplayInterval);
-    };
-
-    startAutoplay();
-
-    carousel.addEventListener('mouseenter', stopAutoplay);
-    carousel.addEventListener('touchstart', stopAutoplay);
-
-    carousel.addEventListener('mouseleave', startAutoplay);
-    carousel.addEventListener('touchend', () => {
-      setTimeout(startAutoplay, 1000);
-    });
+    // El autoplay ha sido desactivado a petición del usuario
 
     // Para asegurarnos de que el carrusel comienza en el primer elemento
     setTimeout(() => {
@@ -211,5 +169,10 @@ const steps: Step[] = [
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  
+  /* Asegurar que las imágenes tengan esquinas redondeadas en todos los navegadores */
+  img {
+    border-radius: 0.75rem;
   }
 </style> 
