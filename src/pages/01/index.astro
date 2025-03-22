@@ -1,0 +1,104 @@
+---
+// Importaciones
+import Navigation from '../../components/Navigation.astro';
+import HeroSection from '../../components/HeroSection.astro';
+import GanadoresSection from '../../components/GanadoresSection.astro';
+import JuegosSection from '../../components/JuegosSection.astro';
+import ComoCargarSection from '../../components/ComoCargarSection.astro';
+import SoporteSection from '../../components/SoporteSection.astro';
+import RedesSection from '../../components/RedesSection.astro';
+
+// Configuración del sitio para versión 1
+const domain = "https://timbaya.com/01";
+const whatsappLink = "https://wa.me/15557239055?text=Holaa%20quiero%20crear%20mi%20cuenta%20ahora";
+const registerLink = "https://wa.me/15557239055?text=Holaa%20quiero%20crear%20mi%20cuenta%20ahora";
+const bonusLink = "https://wa.me/15557239055?text=Holaa%20quiero%20crear%20mi%20cuenta%20ahora";
+const soporteLink = "https://wa.me/15557239055?text=Holaa%20quiero%20crear%20mi%20cuenta%20ahora";
+const whatsappShareLink = `https://wa.me/?text=¡Jugá%20en%20la%20mejor%20plataforma%20del%20país!%20Registrate%20y%20recibí%20un%20BONO%20DE%20BIENVENIDA%20👉%20${domain}`;
+const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=${domain}`;
+const instagramLink = "https://www.instagram.com/lasvegass.ok/";
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Las Vegas - 01</title>
+  <link rel="stylesheet" href="/styles/global.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  
+  <script>
+    // Script para optimizar el scroll en desktop
+    document.addEventListener('DOMContentLoaded', function() {
+      // Detectamos si estamos en desktop
+      const isDesktop = window.innerWidth >= 768;
+      
+      if (isDesktop) {
+        // Optimizamos el rendimiento de scroll en desktop
+        let ticking = false;
+        let lastScrollY = window.scrollY;
+        
+        // Función para manejar el scroll con mejor rendimiento
+        function handleScroll() {
+          if (!ticking) {
+            window.requestAnimationFrame(function() {
+              // Realizar operaciones de scroll aquí
+              lastScrollY = window.scrollY;
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }
+        
+        // Habilitamos passive: true para mejorar el rendimiento
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        // Añadimos la clase específica para desktop
+        document.documentElement.classList.add('desktop-scroll');
+      }
+    });
+  </script>
+</head>
+
+<body class="bg-gradient-to-b from-[#121212] to-[#1e1e1e] text-white font-body">
+  <!-- Menú Navigation -->
+  <Navigation />
+
+  <!-- Secciones del sitio -->
+  <HeroSection
+    whatsappLink={whatsappLink}
+    registerLink={registerLink}
+    bonusLink={bonusLink}
+  />
+  
+  <GanadoresSection
+    registerLink={registerLink}
+  />
+  
+  <JuegosSection
+    bonusLink={bonusLink}
+  />
+  
+  <ComoCargarSection
+    whatsappLink={whatsappLink}
+  />
+  
+  <SoporteSection
+    soporteLink={soporteLink}
+  />
+  
+  <RedesSection
+    domain={domain}
+    whatsappShareLink={whatsappShareLink}
+    facebookShareLink={facebookShareLink}
+    instagramLink={instagramLink}
+  />
+
+  <!-- Scripts externos -->
+  <!-- Usar un enfoque alternativo para cargar el script de Whapify -->
+  <script is:inline>
+  </script>
+</body>
+</html> 

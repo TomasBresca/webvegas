@@ -11,9 +11,11 @@ export default defineConfig({
   ],
   output: 'static',
   build: {
-    format: 'file',
+    format: 'directory',
     assets: '_astro'
   },
   compressHTML: true, 
-  scopedStyleStrategy: 'where'
+  scopedStyleStrategy: 'where',
+  site: 'https://timbaya.com',
+  base: '/'
 });

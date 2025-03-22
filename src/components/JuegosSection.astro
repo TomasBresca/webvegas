@@ -1,0 +1,96 @@
+---
+import GameCard from './GameCard.astro';
+
+interface Props {
+  bonusLink?: string;
+  games?: Array<{
+    title: string;
+    image: string;
+    slug: string;
+  }>;
+}
+
+const { 
+  bonusLink = "/bono",
+  games = [
+    { 
+      title: "6 Jokers",
+      image: "/images/6jokers.webp",
+      slug: "6-jokers"
+    },
+    { 
+      title: "Aztec Cluster",
+      image: "/images/Aztec_Cluster_600x600_azino.png",
+      slug: "aztec-cluster"
+    },
+    { 
+      title: "Joker's Jewels",
+      image: "/images/Joker's Jewels Wild_900x900.png",
+      slug: "jokers-jewels"
+    },
+    { 
+      title: "Roulette",
+      image: "/images/Roulette.webp",
+      slug: "roulette"
+    },
+    { 
+      title: "Sugar Rush",
+      image: "/images/Sugar Rush 1000_900x900.png",
+      slug: "sugar-rush"
+    },
+    { 
+      title: "Zeus vs Hades",
+      image: "/images/Zeus-vs-Hades-Gods-of-war_900x900.webp",
+      slug: "zeus-vs-hades"
+    }
+  ]
+} = Astro.props;
+---
+
+<!-- Sección Juegos -->
+<section id="juegos" class="py-16 px-4 relative overflow-hidden">
+  <!-- Patrón de fondo tipo casino con menor opacidad -->
+  <div class="absolute inset-0 bg-[url('/images/pattern.png')] opacity-[0.02] pointer-events-none"></div>
+  
+  <div class="container mx-auto relative">
+    <!-- Encabezado con efecto de brillo -->
+    <div class="text-center mb-12">
+      <h2 class="font-heading text-3xl md:text-5xl uppercase mb-4 drop-shadow-glow">
+        JUGÁ
+        <span class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] bg-clip-text text-transparent"> AHORA</span>
+      </h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        Descubrí nuestra selección de juegos premium y comenzá a ganar premios increíbles
+      </p>
+    </div>
+
+    <!-- Grid de juegos -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {games.map((game) => (
+        <GameCard {...game} />
+      ))}
+    </div>
+
+    <!-- Botón "Ver todos los juegos" -->
+    <div class="text-center mt-12">
+      <a 
+        href={bonusLink}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center justify-center bg-black/30 backdrop-blur-sm border-2 border-[#e6c656] text-[#e6c656] 
+               font-heading uppercase py-3 px-8 rounded-lg hover:bg-[#e6c656]/10 transition-all group gap-2"
+      >
+        BONO DE BIENVENIDA
+        <span class="group-hover:translate-x-1 transition-transform">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Elementos decorativos -->
+  <div class="absolute -left-20 top-1/4 w-40 h-40 opacity-10">
+    <img src="/images/card.svg" class="w-full h-full animate-float3" alt="Carta decorativa" />
+  </div>
+  <div class="absolute -right-16 bottom-1/4 w-32 h-32 opacity-10">
+    <img src="/images/chip.svg" class="w-full h-full animate-float4" alt="Ficha decorativa" />
+  </div>
+</section> 

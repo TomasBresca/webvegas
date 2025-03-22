@@ -1,0 +1,75 @@
+---
+interface Props {
+  soporteLink?: string;
+}
+
+const { soporteLink = "/soporte" } = Astro.props;
+---
+
+<!-- Sección Soporte -->
+<section id="soporte" class="py-16 px-4 relative overflow-hidden">
+  <!-- Patrón de fondo tipo casino -->
+  <div class="absolute inset-0 bg-[url('/images/pattern.png')] opacity-[0.02] pointer-events-none"></div>
+  
+  <!-- Overlay con gradiente -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50 pointer-events-none"></div>
+
+  <div class="container mx-auto relative">
+    <!-- Card de Soporte -->
+    <div class="max-w-3xl mx-auto bg-black/40 backdrop-blur-sm border border-[#e6c656]/20 rounded-2xl p-8 md:p-12">
+      <!-- Encabezado con efecto de brillo -->
+      <div class="text-center mb-8">
+        <h2 class="font-heading text-3xl md:text-5xl uppercase mb-4 drop-shadow-glow">
+          SOPORTE
+          <span class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] bg-clip-text text-transparent">24/7</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Nuestro equipo está disponible las 24 horas para resolver tus consultas al instante
+        </p>
+      </div>
+
+      <!-- Grid de características -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="text-center p-4 bg-black/30 rounded-xl border border-[#e6c656]/10 backdrop-blur-sm">
+          <div class="text-3xl mb-2 text-[#e6c656]">💬</div>
+          <h3 class="font-heading text-lg mb-1">Chat en Vivo</h3>
+          <p class="text-sm text-gray-400">Respuesta inmediata</p>
+        </div>
+        
+        <div class="text-center p-4 bg-black/30 rounded-xl border border-[#e6c656]/10 backdrop-blur-sm">
+          <div class="text-3xl mb-2 text-[#e6c656]">📱</div>
+          <h3 class="font-heading text-lg mb-1">WhatsApp</h3>
+          <p class="text-sm text-gray-400">Soporte móvil</p>
+        </div>
+        
+        <div class="text-center p-4 bg-black/30 rounded-xl border border-[#e6c656]/10 backdrop-blur-sm">
+          <div class="text-3xl mb-2 text-[#e6c656]">💰</div>
+          <h3 class="font-heading text-lg mb-1">Cargas 24HS</h3>
+          <p class="text-sm text-gray-400">Depósitos inmediatos</p>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center">
+        <a 
+          href={soporteLink}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center justify-center bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-black 
+                 font-heading uppercase py-4 px-8 rounded-lg hover:scale-105 transition-all gap-3 shadow-glow-gold group"
+        >
+          <span class="text-2xl group-hover:scale-110 transition-transform">💬</span>
+          HABLAR CON SOPORTE
+        </a>
+      </div>
+    </div>
+
+    <!-- Elementos decorativos flotantes -->
+    <div class="absolute -top-8 -left-8 w-24 h-24 opacity-10">
+      <img src="/images/chip.svg" class="w-full h-full animate-float1" alt="Ficha decorativa" />
+    </div>
+    <div class="absolute -bottom-8 -right-8 w-32 h-32 opacity-10">
+      <img src="/images/card.svg" class="w-full h-full animate-float2" alt="Carta decorativa" />
+    </div>
+  </div>
+</section> 

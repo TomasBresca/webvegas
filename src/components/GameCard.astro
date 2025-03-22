@@ -34,6 +34,8 @@ const { title, image, slug } = Astro.props;
     <!-- Botón con animación -->
     <a
       href={`/juegos/${slug}`}
+      target="_blank"
+      rel="noopener"
       class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-black font-heading uppercase py-3 px-6 rounded-lg 
              opacity-0 transform translate-y-4 transition-all duration-300 ease-out
              group-hover:opacity-100 group-hover:translate-y-0

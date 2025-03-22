@@ -1,0 +1,79 @@
+---
+interface Props {
+  whatsappLink?: string;
+  registerLink?: string;
+  bonusLink?: string;
+}
+
+const { 
+  whatsappLink = "https://wa.me/?text=Hola,%20quiero%20realizar%20una%20carga", 
+  registerLink = "https://wa.me/?text=Hola,%20quiero%20registrarme",
+  bonusLink = "https://wa.me/?text=Hola,%20quiero%20recibir%20mi%20bono"
+} = Astro.props;
+---
+
+<!-- Sección Hero -->
+<section id="hero" class="min-h-screen flex items-center relative overflow-hidden">
+  <!-- Elemento decorativo - fichas y cartas flotantes -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Fichas -->
+    <img src="/images/chip.svg" class="animate-float1 absolute top-[10%] left-[5%] w-12 h-12 opacity-50" alt="Ficha decorativa">
+    <img src="/images/chip.svg" class="animate-float2 absolute top-[50%] right-[8%] w-10 h-10 opacity-40" alt="Ficha decorativa">
+    <img src="/images/chip.svg" class="animate-float3 absolute bottom-[15%] left-[20%] w-14 h-14 opacity-45" alt="Ficha decorativa">
+    <img src="/images/chip.svg" class="animate-float4 absolute top-[25%] right-[25%] w-8 h-8 opacity-40" alt="Ficha decorativa">
+    <img src="/images/chip.svg" class="animate-float5 absolute bottom-[30%] right-[15%] w-12 h-12 opacity-50" alt="Ficha decorativa">
+    
+    <!-- Cartas -->
+    <img src="/images/card.svg" class="animate-float2 absolute top-[30%] right-[15%] w-12 h-16 opacity-45" alt="Carta decorativa">
+    <img src="/images/card.svg" class="animate-float4 absolute bottom-[40%] left-[10%] w-10 h-14 opacity-40" alt="Carta decorativa">
+    <img src="/images/card.svg" class="animate-float5 absolute top-[15%] left-[30%] w-11 h-15 opacity-45" alt="Carta decorativa">
+  </div>
+  
+  <!-- Patrón de fondo tipo casino -->
+  <div class="absolute inset-0 bg-[url('/images/pattern.png')] opacity-5 pointer-events-none"></div>
+  
+  <!-- Overlay con gradiente -->
+  <div class="absolute inset-0 bg-gradient-radial from-transparent to-[#121212] pointer-events-none"></div>
+  
+  <div class="container mx-auto text-center px-4 relative z-10">
+    <!-- Logo con animación de flotación suave -->
+    <div class="relative inline-block">
+      <img src="/images/logo.png" alt="Logo Plataforma" class="mx-auto mb-8 w-48 md:w-64 animate-logo-float">
+    </div>
+    
+    <h1 class="font-heading text-4xl md:text-6xl mb-6 drop-shadow-glow">
+      LA PLATAFORMA
+      <span class="block mt-1 bg-gradient-to-r from-[#e6c656] to-[#d4af37] bg-clip-text text-transparent">MÁS CONFIABLE</span>
+    </h1>
+    
+    <p class="text-gray-300 mb-8 max-w-lg mx-auto">
+      Sumergite en la experiencia VIP. Jugá ahora y sentí la emoción de ganar premios exclusivos.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href={bonusLink} target="_blank" rel="noopener" 
+         class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-[#121212] font-heading uppercase py-4 px-8 rounded-lg text-xl md:text-2xl hover:scale-105 transition-all w-full sm:w-auto shadow-glow-gold animate-pulse-slow">
+        QUIERO MI BONO
+      </a>
+      
+      <a href={registerLink} target="_blank" rel="noopener"
+         class="border-2 border-[#e6c656] text-[#e6c656] bg-black/30 backdrop-blur-sm font-heading uppercase py-4 px-8 rounded-lg text-xl md:text-2xl hover:bg-[#e6c656]/10 transition-all w-full sm:w-auto">
+        JUGÁ AHORA
+      </a>
+    </div>
+    
+    <!-- Banner destacado -->
+    <div class="mt-12 bg-black/40 backdrop-blur-sm border border-[#e6c656]/20 rounded-lg p-3 inline-block">
+      <div class="flex items-center justify-center gap-2">
+        <span class="animate-bounce text-[#e6c656]">⭐</span>
+        <p class="font-heading uppercase text-sm md:text-base">BONO DE BIENVENIDA</p>
+        <span class="animate-bounce text-[#e6c656]">⭐</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <span class="block text-[#e6c656]">↓</span>
+  </div>
+</section> 
