@@ -3,9 +3,10 @@ interface Props {
   title: string;
   image: string;
   slug: string;
+  whatsappLink?: string;
 }
 
-const { title, image, slug } = Astro.props;
+const { title, image, slug, whatsappLink = "#" } = Astro.props;
 ---
 
 <div 
@@ -33,7 +34,7 @@ const { title, image, slug } = Astro.props;
 
     <!-- Botón con animación -->
     <a
-      href={`/juegos/${slug}`}
+      href={whatsappLink}
       target="_blank"
       rel="noopener"
       class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-black font-heading uppercase py-3 px-6 rounded-lg 
