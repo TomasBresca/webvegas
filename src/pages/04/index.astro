@@ -10,13 +10,13 @@ import RedesSection from '../../components/RedesSection.astro';
 
 // Configuración del sitio para versión 4
 const domain = "https://timbaya.com/04";
-const whatsappLink = "https://wa.me/5491144444444?text=Hola,%20quiero%20realizar%20una%20carga%20(Version4)";
-const registerLink = "https://wa.me/5491144444444?text=Hola,%20quiero%20registrarme%20(Version4)";
-const bonusLink = "https://wa.me/5491144444444?text=Hola,%20quiero%20recibir%20mi%20bono%20(Version4)";
-const soporteLink = "https://wa.me/5491144444444?text=Hola,%20necesito%20soporte%20(Version4)";
+const whatsappLink = "#";
+const registerLink = "#";
+const bonusLink = "#";
+const soporteLink = "#";
 const whatsappShareLink = `https://wa.me/?text=¡Jugá%20en%20la%20mejor%20plataforma%20del%20país!%20Registrate%20y%20recibí%20un%20BONO%20DE%20BIENVENIDA%20👉%20${domain}`;
 const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=${domain}`;
-const instagramLink = "https://www.instagram.com/timbaya_version4/";
+const instagramLink = "https://www.instagram.com/lasvegass.ok/";
 ---
 
 <!DOCTYPE html>
@@ -97,12 +97,28 @@ const instagramLink = "https://www.instagram.com/timbaya_version4/";
   />
 
   <!-- Scripts externos -->
-  <!-- Usar un enfoque alternativo para cargar el script de Whapify -->
+  <!-- Cargar Whapify con is:inline y defer para evitar problemas de CORS en desarrollo -->
+  <script is:inline defer src="https://ap.whapify.ai/webchat/plugin.js?v=6"></script>
   <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verificar si ktt10 está disponible después de que se cargue el script
+      setTimeout(function() {
+        if (typeof ktt10 !== 'undefined') {
+          ktt10.setup({id:"xoWFFmjlTk",accountId:"1588550",color:"#006dff"});
+        } else {
+          console.warn('El objeto ktt10 no está disponible. Verifica la carga del script de Whapify.');
+        }
+      }, 1000); // Esperar 1 segundo para asegurarse de que el script se haya cargado
+    });
   </script>
 
   <!-- Estilos personalizados para el botón de Whapify -->
   <style is:global>
+    /* Estilos para el contenedor principal de Whapify */
+    .ktt10-btn {
+      margin-bottom: 70px !important;
+      padding-bottom: 20px !important;
+    }
   </style>
 </body>
 </html> 
