@@ -1,5 +1,4 @@
 ---
-//Ai Benitez 02
 // Importaciones
 import Navigation from '../../components/Navigation.astro';
 import HeroSection from '../../components/HeroSection.astro';
@@ -9,12 +8,12 @@ import ComoCargarSection from '../../components/ComoCargarSection.astro';
 import SoporteSection from '../../components/SoporteSection.astro';
 import RedesSection from '../../components/RedesSection.astro';
 
-// Configuración del sitio para versión 2
-const domain = "https://timbaya.com/02";
-const whatsappLink = "https://wa.me/5491131582726?text=Holaa%20quiero%20crear%20mi%20cuenta";
-const registerLink = "https://wa.me/5491131582726?text=Holaa%20quiero%20crear%20mi%20cuenta";
-const bonusLink = "https://wa.me/5491131582726?text=Holaa%20quiero%20crear%20mi%20cuenta";
-const soporteLink = "https://wa.me/5491131582726?text=Holaa%20quiero%20crear%20mi%20cuenta";
+// Configuración del sitio para versión 5
+const domain = "https://timbaya.com/08";
+const whatsappLink = "https://wa.me/5491155837639?text=Holaa%20quiero%20crear%20mi%20cuenta";
+const registerLink = "https://wa.me/5491155837639?text=Holaa%20quiero%20crear%20mi%20cuenta";
+const bonusLink = "https://wa.me/5491155837639?text=Holaa%20quiero%20crear%20mi%20cuenta";
+const soporteLink = "https://wa.me/5491155837639?text=Holaa%20quiero%20crear%20mi%20cuenta";
 const whatsappShareLink = `https://wa.me/?text=¡Jugá%20en%20la%20mejor%20plataforma%20del%20país!%20Registrate%20y%20recibí%20un%20BONO%20DE%20BIENVENIDA%20👉%20${domain}`;
 const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=${domain}`;
 const instagramLink = "https://www.instagram.com/lasvegass.ok/";
@@ -25,7 +24,7 @@ const instagramLink = "https://www.instagram.com/lasvegass.ok/";
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Las Vegas - 02</title>
+  <title>Las Vegas - 08</title>
   <link rel="stylesheet" href="/styles/global.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/images/logo.png">
@@ -107,14 +106,14 @@ const instagramLink = "https://www.instagram.com/lasvegass.ok/";
   />
 
   <!-- Scripts externos -->
-  <!-- Usar un enfoque alternativo para cargar el script de Whapify -->
+  <!-- Cargar Whapify con is:inline y defer para evitar problemas de CORS en desarrollo -->
   <script is:inline defer src="https://ap.whapify.ai/webchat/plugin.js?v=6"></script>
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function() {
       // Verificar si ktt10 está disponible después de que se cargue el script
       setTimeout(function() {
         if (typeof ktt10 !== 'undefined') {
-          ktt10.setup({id:"tb8OEmFHIsm",accountId:"1672603",color:"#006dff"});
+          ktt10.setup({id:"TdT7vejBbZU",accountId:"1614687",color:"#006dff"});
           
           // Activar automáticamente el chat después de 4 segundos
           setTimeout(function() {
@@ -137,7 +136,7 @@ const instagramLink = "https://www.instagram.com/lasvegass.ok/";
       }, 1000); // Esperar 1 segundo para asegurarse de que el script se haya cargado
     });
   </script>
-  
+
   <!-- Estilos personalizados para el botón de Whapify -->
   <style is:global>
     /* Estilos para el contenedor principal de Whapify */

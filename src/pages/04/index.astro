@@ -1,4 +1,5 @@
 ---
+//Matias
 // Importaciones
 import Navigation from '../../components/Navigation.astro';
 import HeroSection from '../../components/HeroSection.astro';
@@ -10,10 +11,10 @@ import RedesSection from '../../components/RedesSection.astro';
 
 // Configuración del sitio para versión 4
 const domain = "https://timbaya.com/04";
-const whatsappLink = "#";
-const registerLink = "#";
-const bonusLink = "#";
-const soporteLink = "#";
+const whatsappLink = "https://wa.me/5493442684863?text=Holaa%20quiero%20crear%20mi%20cuenta";
+const registerLink = "https://wa.me/5493442684863?text=Holaa%20quiero%20crear%20mi%20cuenta";
+const bonusLink = "https://wa.me/5493442684863?text=Holaa%20quiero%20crear%20mi%20cuenta";
+const soporteLink = "https://wa.me/5493442684863?text=Holaa%20quiero%20crear%20mi%20cuenta";
 const whatsappShareLink = `https://wa.me/?text=¡Jugá%20en%20la%20mejor%20plataforma%20del%20país!%20Registrate%20y%20recibí%20un%20BONO%20DE%20BIENVENIDA%20👉%20${domain}`;
 const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=${domain}`;
 const instagramLink = "https://www.instagram.com/lasvegass.ok/";
@@ -28,6 +29,15 @@ const instagramLink = "https://www.instagram.com/lasvegass.ok/";
   <link rel="stylesheet" href="/styles/global.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "qswqx21ky1");
+  </script>
   
   <script>
     // Script para optimizar el scroll en desktop
@@ -104,7 +114,23 @@ const instagramLink = "https://www.instagram.com/lasvegass.ok/";
       // Verificar si ktt10 está disponible después de que se cargue el script
       setTimeout(function() {
         if (typeof ktt10 !== 'undefined') {
-          ktt10.setup({id:"xoWFFmjlTk",accountId:"1588550",color:"#006dff"});
+          ktt10.setup({id:"oKddfFARH1tSKwYs6",accountId:"1546636",color:"#006dff"});
+          
+          // Activar automáticamente el chat después de 4 segundos
+          setTimeout(function() {
+            // Buscar el botón de Whapify y simulamos un clic
+            const whapifyBtn = document.querySelector('.ktt10-btn');
+            if (whapifyBtn) {
+              whapifyBtn.click();
+            } else {
+              // Alternativa: intentar abrir el chat directamente con la API de ktt10
+              if (typeof ktt10.open === 'function') {
+                ktt10.open();
+              } else if (typeof ktt10.toggle === 'function') {
+                ktt10.toggle();
+              }
+            }
+          }, 2500); // 2.5 segundos
         } else {
           console.warn('El objeto ktt10 no está disponible. Verifica la carga del script de Whapify.');
         }
