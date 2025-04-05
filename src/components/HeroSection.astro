@@ -3,12 +3,15 @@ interface Props {
   whatsappLink?: string;
   registerLink?: string;
   bonusLink?: string;
+  seccionId?: string; // Añadir este parámetro
 }
+
 
 const { 
   whatsappLink = "https://wa.me/?text=Hola,%20quiero%20realizar%20una%20carga", 
   registerLink = "https://wa.me/?text=Hola,%20quiero%20registrarme",
-  bonusLink = "https://wa.me/?text=Hola,%20quiero%20recibir%20mi%20bono"
+  bonusLink = "https://wa.me/?text=Hola,%20quiero%20recibir%20mi%20bono",
+  seccionId = "default" // Valor por defecto
 } = Astro.props;
 ---
 
@@ -51,15 +54,17 @@ const {
     </p>
     
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href={bonusLink} target="_blank" rel="noopener" 
-         class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-[#121212] font-heading uppercase py-4 px-8 rounded-lg text-xl md:text-2xl hover:scale-105 transition-all w-full sm:w-auto shadow-glow-gold animate-pulse-slow">
-        QUIERO MI BONO
-      </a>
-      
-      <a href={registerLink} target="_blank" rel="noopener"
-         class="border-2 border-[#e6c656] text-[#e6c656] bg-black/30 backdrop-blur-sm font-heading uppercase py-4 px-8 rounded-lg text-xl md:text-2xl hover:bg-[#e6c656]/10 transition-all w-full sm:w-auto">
-        JUGÁ AHORA
-      </a>
+<a href={bonusLink} target="_blank" rel="noopener" 
+   onclick={`fbq('track', 'ClickBono', {seccion: '${seccionId}'});`}
+   class="bg-gradient-to-r from-[#e6c656] to-[#d4af37] text-[#121212] font-heading uppercase py-4 px-8 rounded-lg text-xl md:text-2xl hover:scale-105 transition-all w-full sm:w-auto shadow-glow-gold animate-pulse-slow">
+  QUIERO MI BONO
+</a>
+
+<a href={registerLink} target="_blank" rel="noopener"
+   onclick={`fbq('track', 'ClickJugar', {seccion: '${seccionId}'});`}
+   class="border-2 border-[#e6c656] text-[#e6c656] bg-black/30 backdrop-blur-sm font-heading uppercase py-4 px-8 rounded-lg text-xl md:text-2xl hover:bg-[#e6c656]/10 transition-all w-full sm:w-auto">
+  JUGÁ AHORA
+</a>
     </div>
     
     <!-- Banner destacado -->
