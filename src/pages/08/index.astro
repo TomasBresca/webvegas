@@ -134,46 +134,5 @@ src="https://www.facebook.com/tr?id=1182217573504605&ev=PageView&noscript=1"
     facebookShareLink={facebookShareLink}
     instagramLink={instagramLink}
   />
-
-  <!-- Scripts externos -->
-  <!-- Cargar Whapify con is:inline y defer para evitar problemas de CORS en desarrollo -->
-  <script is:inline defer src="https://ap.whapify.ai/webchat/plugin.js?v=6"></script>
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Verificar si ktt10 está disponible después de que se cargue el script
-      setTimeout(function() {
-        if (typeof ktt10 !== 'undefined') {
-          ktt10.setup({id:"TdT7vejBbZU",accountId:"1614687",color:"#006dff"});
-          
-          // Activar automáticamente el chat después de 4 segundos
-          setTimeout(function() {
-            // Buscar el botón de Whapify y simulamos un clic
-            const whapifyBtn = document.querySelector('.ktt10-btn');
-            if (whapifyBtn) {
-              whapifyBtn.click();
-            } else {
-              // Alternativa: intentar abrir el chat directamente con la API de ktt10
-              if (typeof ktt10.open === 'function') {
-                ktt10.open();
-              } else if (typeof ktt10.toggle === 'function') {
-                ktt10.toggle();
-              }
-            }
-          }, 2500); // 2.5 segundos
-        } else {
-          console.warn('El objeto ktt10 no está disponible. Verifica la carga del script de Whapify.');
-        }
-      }, 1000); // Esperar 1 segundo para asegurarse de que el script se haya cargado
-    });
-  </script>
-
-  <!-- Estilos personalizados para el botón de Whapify -->
-  <style is:global>
-    /* Estilos para el contenedor principal de Whapify */
-    .ktt10-btn {
-      margin-bottom: 70px !important;
-      padding-bottom: 20px !important;
-    }
-  </style>
 </body>
 </html> 
